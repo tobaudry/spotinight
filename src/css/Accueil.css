@@ -1,0 +1,160 @@
+/* Accueil.css */
+* {
+  list-style: none;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+.accueil-container {
+  font-family: "Arial", sans-serif;
+  background-color: #f0f0f0;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.accueil-header {
+  background-color: #1db954;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.accueil-header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.accueil-header p {
+  margin: 10px 0 0;
+  font-size: 16px;
+}
+
+.accueil-buttons {
+  margin-top: 20px;
+}
+
+.accueil-buttons button {
+  background-color: white;
+  color: #1db954;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-right: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.accueil-buttons button:hover {
+  background-color: #1db954;
+  color: white;
+}
+
+.new-releases {
+  margin-top: 30px;
+}
+
+.release {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+}
+
+.release:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.release img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.release-info {
+  margin-top: 10px;
+}
+
+.release-info h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.release-info p {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #666;
+}
+
+.events-list {
+  margin-top: 20px;
+}
+
+.events-list h2 {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.events-list ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+.events-list li {
+  background-color: #31db6d;
+  margin: 10px 0;
+  padding: 15px 20px;
+  width: 80%; /* Ajuste selon la largeur désirée */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  list-style-type: none;
+  transition: all 0.3s;
+}
+
+.events-list li:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  transform: translateY(-3px);
+}
+
+.events-list a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Améliore la visibilité des liens lors du survol */
+.events-list a:hover {
+  color: #1db954;
+}
+
+.button-logout {
+  position: fixed;
+  bottom: 20px; /* Ajustement de l'espacement du bas */
+  right: 2px; /* Aligné à droite pour l'équilibrer visuellement */
+  padding: 10px 15px; /* Réduction du padding pour diminuer la taille */
+  background-color: #ff4b4b; /* Couleur de fond */
+  color: white; /* Couleur du texte */
+  font-size: 14px; /* Taille du texte réduite */
+  border: none; /* Pas de bordure */
+  border-radius: 20px; /* Bords arrondis */
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre portée pour un effet 3D */
+  transition: all 0.2s ease-in-out; /* Transition douce pour les interactions */
+}
+
+.button-logout:hover {
+  background-color: #e60000; /* Changement de la couleur au survol */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Ombre portée plus prononcée */
+  transform: scale(1.05); /* Légère augmentation de la taille au survol */
+}
+
+.button-logout:active {
+  transform: scale(0.95); /* Réduction de la taille lors du clic */
+}
