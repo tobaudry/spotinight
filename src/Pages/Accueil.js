@@ -11,15 +11,13 @@ import { ref, set } from "../firebase-config";
 import "../App.css";
 import "../css/Accueil.css";
 import { get } from "firebase/database";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { WindowSharp } from "@mui/icons-material";
+import { Link, useNavigate } from "react-router-dom";
 
 function Accueil() {
   const [user, setUser] = useState(null);
   const [events, setEvents] = useState([]);
   const [globalTopTracks, setGlobalTopTracks] = useState([]);
   const navigate = useNavigate();
-  const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -131,7 +129,10 @@ function Accueil() {
   return (
     <div className="app">
       <header className="app-header">
-        <img src="https://firebasestorage.googleapis.com/v0/b/spotinight-13b75.appspot.com/o/logo2.png?alt=media&token=4046e15c-1589-471d-8007-c9bf817fac6d" />
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/spotinight-13b75.appspot.com/o/logo2.png?alt=media&token=4046e15c-1589-471d-8007-c9bf817fac6d"
+          alt="logo"
+        />
         {user ? (
           <p>Bonjour {user.display_name}, content de te revoir !</p>
         ) : (
@@ -172,10 +173,7 @@ function Accueil() {
               <div className="tracks-container">
                 {globalTopTracks.map((item, index) => (
                   <div key={index} className="track">
-                    <img
-                      src={item.track.album.images[0].url}
-                      alt={item.track.name}
-                    />
+                    <img src={item.track.album.images[0].url} alt="track" />
                     <div className="track-info">
                       <h3>{item.track.name}</h3>
                       <p>

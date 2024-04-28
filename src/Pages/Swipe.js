@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { database } from "../firebase-config";
-import { ref, get, set, update, push } from "firebase/database";
+import { ref, get, set, update } from "firebase/database";
 import { getTrackInfo } from "../Spotify";
 import { searchTracks, currentToken } from "../Spotify";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CloseIcon from "@mui/icons-material/Close";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -44,7 +44,7 @@ function Swipe({ eventId }) {
     };
 
     fetchUserTracks();
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     const fetchRemainingAdds = async () => {
@@ -201,7 +201,7 @@ function Swipe({ eventId }) {
     };
 
     fetchPlaylist();
-  }, [eventId, userTracks]);
+  }, [eventId, userTracks, playlist.length]);
 
   useEffect(() => {
     const fetchTrackInfo = async () => {
@@ -227,7 +227,7 @@ function Swipe({ eventId }) {
             error
           );
         }
-      } else if (playlist.length == 0) {
+      } else if (playlist.length === 0) {
         setSwipeEnd(true);
         setLoading(false);
       }
@@ -281,7 +281,7 @@ function Swipe({ eventId }) {
       await update(eventPlaylistRef, { like: playlist[currentIndex].like + 1 });
       await addToUserTracks(userId, currentTrackId);
       setCurrentIndex((prevIndex) => prevIndex + 1);
-    } else if (currentIndex == playlist.length - 1) {
+    } else if (currentIndex === playlist.length - 1) {
       const currentTrackId = playlist[currentIndex].id;
       const eventPlaylistRef = ref(
         database,
@@ -298,7 +298,7 @@ function Swipe({ eventId }) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
       const currentTrackId = playlist[currentIndex].id;
       await addToUserTracks(userId, currentTrackId);
-    } else if (currentIndex == playlist.length - 1) {
+    } else if (currentIndex === playlist.length - 1) {
       const currentTrackId = playlist[currentIndex].id;
       await addToUserTracks(userId, currentTrackId);
       setSwipeEnd(true);
@@ -345,7 +345,7 @@ function Swipe({ eventId }) {
             {currentTrackInfo.album.images.length > 0 && (
               <img
                 src={currentTrackInfo.album.images[0].url}
-                alt="Image de la piste"
+                alt="album"
                 style={{ maxWidth: "300px" }}
               />
             )}

@@ -32,7 +32,9 @@ function CreateEvent() {
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     if (!userId) {
-      console.log("L'utilisateur n'est pas connecté. Redirection vers la page d'accueil.");
+      console.log(
+        "L'utilisateur n'est pas connecté. Redirection vers la page d'accueil."
+      );
       navigate("/");
     }
   }, [navigate]);
@@ -41,7 +43,8 @@ function CreateEvent() {
     const newErrors = {};
     const currentDate = new Date().toISOString().split("T")[0];
     if (!title.match(/^[a-zA-Z0-9 ]+$/)) {
-      newErrors.title = "Le titre doit contenir uniquement des lettres et des chiffres.";
+      newErrors.title =
+        "Le titre doit contenir uniquement des lettres et des chiffres.";
     }
     if (date < currentDate) {
       newErrors.date = "La date ne peut pas être dans le passé.";
@@ -86,7 +89,6 @@ function CreateEvent() {
 
     const userId = localStorage.getItem("userId");
 
-
     const newPlaylistId = await createPlaylistInFirebase(
       musicStyle,
       newEventRef.key
@@ -110,7 +112,7 @@ function CreateEvent() {
     };
 
     await set(newEventRef, eventData);
-    const createdEventId = newEventRef.key; 
+    const createdEventId = newEventRef.key;
     return createdEventId;
   }
   async function createPlaylistInFirebase(musicStyle, eventId) {
@@ -156,11 +158,22 @@ function CreateEvent() {
       </div>
       <img
         src="https://firebasestorage.googleapis.com/v0/b/spotinight-13b75.appspot.com/o/logo2Black.png?alt=media&token=25439665-db8c-441f-b09e-267bee68e791"
-        style={{ position: "fixed", top: "100px", left: "50%", transform: "translateX(-50%)" }}
+        style={{
+          position: "fixed",
+          top: "100px",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+        alt="logo"
       />
       <form
         onSubmit={handleSubmit}
-        style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}>
         <input
           type="text"
           placeholder="Titre"
@@ -180,19 +193,19 @@ function CreateEvent() {
           onChange={(e) => setTime(e.target.value)}
         />
         <select
-  value={musicStyle}
-  onChange={(e) => setMusicStyle(e.target.value)}>
-  <option value="top50France">Top 50 France</option>
-  <option value="top50Monde">Top 50 Monde</option>
-  <option value="top50RapFrancais">Top 50 Rap français</option>
-  <option value="top50Rock">Top 50 Rock</option>
-  <option value="topHitsDuMoment">Top Hits Du Moment</option>
-  <option value="top50Metal">Top 50 Metal</option>
-  <option value="top50RnB">Top 50 RnB</option>
-  <option value="top50Reggaeton">Top 50 Reggaeton</option>
-  <option value="top50Techno">Top 50 Techno</option>
-  <option value="top50Electro">Top 50 Electro</option>
-</select>
+          value={musicStyle}
+          onChange={(e) => setMusicStyle(e.target.value)}>
+          <option value="top50France">Top 50 France</option>
+          <option value="top50Monde">Top 50 Monde</option>
+          <option value="top50RapFrancais">Top 50 Rap français</option>
+          <option value="top50Rock">Top 50 Rock</option>
+          <option value="topHitsDuMoment">Top Hits Du Moment</option>
+          <option value="top50Metal">Top 50 Metal</option>
+          <option value="top50RnB">Top 50 RnB</option>
+          <option value="top50Reggaeton">Top 50 Reggaeton</option>
+          <option value="top50Techno">Top 50 Techno</option>
+          <option value="top50Electro">Top 50 Electro</option>
+        </select>
 
         <input
           type="number"
@@ -200,7 +213,9 @@ function CreateEvent() {
           value={limiteAjout}
           onChange={(e) => setLimiteAjout(e.target.value)}
         />
-        {errors.limiteAjout && <div className="error">{errors.limiteAjout}</div>}
+        {errors.limiteAjout && (
+          <div className="error">{errors.limiteAjout}</div>
+        )}
         <button type="submit">Créer l'événement</button>
       </form>
     </div>

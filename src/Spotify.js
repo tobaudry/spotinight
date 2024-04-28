@@ -1,12 +1,9 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-
 const clientId = "3cde5ab5546a42d0a7d271199a4f2a70"; // clientId
-const redirectUrl = "http://localhost:3000"; // redirect URL 
+const redirectUrl = "http://localhost:3000"; // redirect URL
 const authorizationEndpoint = "https://accounts.spotify.com/authorize";
 const tokenEndpoint = "https://accounts.spotify.com/api/token";
-const scope = "user-read-private user-read-email user-top-read playlist-modify-public";
-
+const scope =
+  "user-read-private user-read-email user-top-read playlist-modify-public";
 
 const currentToken = {
   get access_token() {
@@ -34,16 +31,13 @@ const currentToken = {
   },
 };
 
-
 const args = new URLSearchParams(window.location.search);
 const code = args.get("code");
-
 
 if (code) {
   const token = await getToken(code);
   currentToken.save(token);
 
-  
   const url = new URL(window.location.href);
   url.searchParams.delete("code");
   const updatedUrl = url.search ? url.href : url.href.replace("?", "");
@@ -83,20 +77,20 @@ async function redirectToSpotifyAuthorize() {
   };
 
   authUrl.search = new URLSearchParams(params).toString();
-  window.location.href = authUrl.toString(); 
+  window.location.href = authUrl.toString();
 }
 
 export const searchTracks = async (searchTerm, accessToken) => {
-  const baseURL = 'https://api.spotify.com/v1/search';
+  const baseURL = "https://api.spotify.com/v1/search";
   const query = `?q=${encodeURIComponent(searchTerm)}&type=track&limit=10`;
 
   try {
     const response = await fetch(`${baseURL}${query}`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Authorization': `Bearer ${accessToken}`,
-        'Content-Type': 'application/json'
-      }
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
     });
 
     if (!response.ok) {
@@ -104,15 +98,14 @@ export const searchTracks = async (searchTerm, accessToken) => {
     }
 
     const data = await response.json();
-    return data.tracks.items; 
+    return data.tracks.items;
   } catch (error) {
-    console.error('Error during track search', error);
-    throw error; 
+    console.error("Error during track search", error);
+    throw error;
   }
 };
 
-
-// Soptify API 
+// Soptify API
 async function getToken(code) {
   const code_verifier = localStorage.getItem("code_verifier");
 
@@ -197,7 +190,6 @@ export async function getPlaylistTracks(playlistId) {
   );
 }
 
-
 // top sons
 export async function getTopTracks() {
   return await fetchWebApi("v1/me/top/tracks?limit=5", "GET");
@@ -209,7 +201,6 @@ export async function getGlobalTopTracks() {
 }
 
 export async function getTrackInfo(trackId) {
-
   try {
     const trackInfo = await fetchWebApi(`v1/tracks/${trackId}`, "GET");
     return trackInfo;
@@ -218,7 +209,7 @@ export async function getTrackInfo(trackId) {
       "Erreur lors de la récupération des informations de la piste :",
       error
     );
-    throw error; 
+    throw error;
   }
 }
 

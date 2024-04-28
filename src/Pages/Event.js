@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getUserData, isLogged } from "../Spotify";
 import { database } from "../firebase-config";
-import { ref, get, set, remove, push } from "firebase/database";
+import { ref, get, set } from "firebase/database";
 import { useNavigate, useParams } from "react-router-dom";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import Swipe from "./Swipe";
@@ -15,7 +15,7 @@ function Event() {
   const [eventData, setEventData] = useState(null);
   const [countdown, setCountdown] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [days, setDays] = useState(0);
+  const [days] = useState(0);
   const [playlistCreated, setPlaylistCreated] = useState(false);
   const [playlistUrl, setPlaylistUrl] = useState("");
 
@@ -28,6 +28,24 @@ function Event() {
         const userData = await getUserData();
         setUser(userData);
         if (userData) {
+          // Move checkEventParticipation inside the useEffect callback
+          const checkEventParticipation = async (userId) => {
+            try {
+              const userRef = ref(
+                database,
+                `events/${eventId}/users/${userId}`
+              );
+              const userSnapshot = await get(userRef);
+
+              if (userSnapshot.exists()) {
+              } else {
+                setShowPopup(true);
+              }
+            } catch (error) {
+              console.error("Erreur :", error);
+            }
+          };
+
           checkEventParticipation(userData.id);
         }
         await fetchEventData(eventId);
@@ -35,7 +53,7 @@ function Event() {
     };
 
     fetchData();
-  }, [navigate, eventId]);
+  }, [navigate, eventId]); // Remove checkEventParticipation from dependencies
 
   useEffect(() => {
     if (eventData) {
@@ -46,7 +64,6 @@ function Event() {
 
       if (eventDateTime > now) {
         console.log("je suis dedans");
-        const timeRemaining = eventDateTime.getTime() - now.getTime();
         const intervalId = setInterval(() => {
           const now = new Date();
           const timeRemaining = eventDateTime.getTime() - now.getTime();
@@ -85,20 +102,6 @@ function Event() {
 
     checkPlaylistCreated();
   }, [eventData]);
-
-  const checkEventParticipation = async (userId) => {
-    try {
-      const userRef = ref(database, `events/${eventId}/users/${userId}`);
-      const userSnapshot = await get(userRef);
-
-      if (userSnapshot.exists()) {
-      } else {
-        setShowPopup(true);
-      }
-    } catch (error) {
-      console.error("Erreur :", error);
-    }
-  };
 
   const fetchEventData = async (eventId) => {
     try {
@@ -365,6 +368,7 @@ function Event() {
                       left: "50%",
                       transform: "translateX(-50%)",
                     }}
+                    alt="logo"
                   />
                 </div>
               ) : (
