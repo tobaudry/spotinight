@@ -1,5 +1,5 @@
 const clientId = "3cde5ab5546a42d0a7d271199a4f2a70"; // clientId
-const redirectUrl = "http://localhost:3000"; // redirect URL
+const redirectUrl = "https://spotinight.netlify.app"; // redirect URL
 const authorizationEndpoint = "https://accounts.spotify.com/authorize";
 const tokenEndpoint = "https://accounts.spotify.com/api/token";
 const scope =
